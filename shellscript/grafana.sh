@@ -16,7 +16,7 @@ if [ -f /etc/redhat-release ]; then
     sudo rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-Grafana
     echo "[grafana]
     name=grafana
-    baseurl=https://packages.grafana.com/oss/rpm
+    baseurl=https://packages.grafana.com/enterprise/rpm
     enabled=1
     gpgcheck=1
     gpgkey=https://packages.grafana.com/gpg.key" | sudo tee /etc/yum.repos.d/grafana.repo
@@ -35,11 +35,10 @@ elif [ -f /etc/lsb-release ]; then
     sudo mkdir -p /etc/apt/keyrings/
 
     # Download and add Grafana GPG key
-    wget -q -O - https://apt.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
+    wget -q -O - https://packages.grafana.com/gpg.key | gpg --dearmor | sudo tee /etc/apt/keyrings/grafana.gpg > /dev/null
 
     # Add Grafana repository to sources list
-    echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://packages.grafana.com stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
-    echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://packages.grafana.com beta main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+    echo "deb [signed-by=/etc/apt/keyrings/grafana.gpg] https://packages.grafana.com/enterprise/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
 
     # Update package lists
     sudo apt-get update
